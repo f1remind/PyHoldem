@@ -1,12 +1,4 @@
-'''
-This script tests the value of a poker set following the texas hold 'em rules.
-2016-04-01:00-13 404 lines total, 153 lines functional code without debug methods
-'''
-#TODO Compare hands, return the higher valued one and its value.
-#If both have the same value calculate the winning hand
-#TODO encode the type of tiebraker once the tiebreaking has been implemented
-##Higher Straight [Flush]{Straight Flush | Straight} | Pair {Full House | Two Pair | Pair} | Three Of A Kind {Full House | Three Of A Kind}
-##<x> Kicker {Four Of A Kind | Flush | Three Of A Kind | Two Pair | Pair | Highcard}
+#TODO encode the type of tiebraker
 def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
     equal = 0
     #decider = 0 #Defines what has won this decision (straight, kicker, four of a kind, three of a kind, pair)
