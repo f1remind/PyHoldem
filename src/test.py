@@ -123,12 +123,15 @@ message = {'royalflush':['Royal Flush', 9],
              'broken':''}
 
 def test():
-    print('{:28}Expected:Calculated\n'.format('Testing possible hands:'))
+    errors = 0
+    print('{:15}{:^25}{:^20} Cards'.format('Result', 'Hand', ' Expected:Calculated'))
     for key in testingsuite:
         for cards in testingsuite[key]:
             expected = message[key][1]
             calculated = poker.evalHand(cards)
             if calculated != expected:
-                print('!!![ERROR]!!! at: {:<25}{}:{} using {}'.format(message[key][0], expected, calculated, cards))
+                print('{:<15}{:^25}{:^20} using {}'.format('!!![ERROR]!!!', message[key][0], str(expected) + ':' + str(calculated), cards))
+                errors += 1
             else:
-                print('[SUCCESS] {:<25}{}:{} using {}'.format(message[key][0], expected, calculated, cards))
+                print('{:<15}{:^25}{:^20} using {}'.format('[SUCCESS]', message[key][0], str(expected) + ':' + str(calculated), cards))
+    print('\n{:=^80}'.format('Completed with ' + str(errors) + ' Errors.'))

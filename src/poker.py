@@ -111,21 +111,16 @@ def evalStraightFlush(cards):
         x = evalStraight(x)
     return x
 
-#Helper Method to subtract the 'to_delete' cards from the 'cards' list
-def removeCards(cards, to_delete):
-    for card in to_delete:
-        if card in cards:
-            cards.remove(card)
+
 
 
 #Evaluates if the cards contain a full house by checking for a flush and checking the returned subset for a straight            
 def evalFullHouse(cards):
     cards = cards[:]
-    #evalOfAKind sorts descending and returns the most valuable match first
     x = evalOfAKind(3, cards)
-    removeCards(cards, x)
+    helper.removeCards(cards, x)
     y = evalOfAKind(2, cards)
-    removeCards(cards, y)
+    helper.removeCards(cards, y)
     z = evalOfAKind(2, cards)
     return x,y,z
 
@@ -261,3 +256,10 @@ def displayCardInfo(value, cards=[]):
 
 def play(cards):
     displayCardInfo(evalHand(cards), cards)
+
+class helper:
+    #Helper Method to subtract the 'to_delete' cards from the 'cards' list
+    def removeCards(cards, to_delete):
+        for card in to_delete:
+            if card in cards:
+                cards.remove(card)
