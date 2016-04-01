@@ -1,6 +1,5 @@
-#ascii cards
-length = 10
-width = 11
+_length = 10
+_width = 11
 template = [
             ' _________ ',
             '|         |',
@@ -12,54 +11,7 @@ template = [
             '|         |',
             '|         |',
             ' ‾‾‾‾‾‾‾‾‾ '
-            ]#10 deep, 11 wide
-asciicard = \
-          '''
- _________
-|Ace      |
-|         |
-|   / \   |
-|  /   \  |
-|  \   /  |
-|   \ /   |
-|         |
-|      Ace|
- ‾‾‾‾‾‾‾‾‾
-
- _________
-|Ace      |
-|         |
-| /‾\_/‾\ |
-| \     / |
-|  \   /  |
-|   \_/   |
-|        |
-|     Ace|
- ‾‾‾‾‾‾‾‾‾
-
- _________
-|Ace      |
-|         |
-|   /‾\   |
-|  /   \  |
-| /     \ |
-| \_/|\_/ |
-|         |
-|      Ace|
- ‾‾‾‾‾‾‾‾‾
-
- _________
-|Ace      |
-|         |
-|  _|‾|_  |
-| |_   _| |
-|   / \   |
-|   ‾‾‾   |
-|         |
-|      Ace|
- ‾‾‾‾‾‾‾‾‾ 
-
-          '''
+            ]
 cards = {'diamond':[
               ' _________ ',
               '|{:<9}|',
@@ -109,7 +61,7 @@ cards = {'diamond':[
               ' ‾‾‾‾‾‾‾‾‾ '
               ]
           }
-def printcards():
+def printAllCards():
     for suit in cards:
         for i in range(2,15):
             print('\n' + str(i) + ' of ' + str(suit) + 's:')
@@ -127,7 +79,7 @@ def printcards():
                 print(line.format(val))
 
 
-def inttosuit(suit):
+def intToSuit(suit):
     output = ''
     if suit == 0:
         output = 'heart'
@@ -138,21 +90,22 @@ def inttosuit(suit):
     elif suit == 3:
         output = 'spade'
     return output
-def handtoascii(hand):
+def handToAscii(hand):
     output = []
     for card in hand:
         lines = []
-        for line in cards[inttosuit(card[1])]:
+        for line in cards[intToSuit(card[1])]:
             lines.append(line.format(card[0]))
         output.append(lines)
     return output
-def printhand(hand=[]):
+def printHand(hand=[]):
     if not len(hand):
+        print('This is the default print without parameters to demonstrate this function')
         hand = [[14, 0], [2, 1], [3, 2], [4, 3], [5, 0]]
-    print('{:+^80}'.format('Reference: this is 80 chars'))
+        print('{:+^80}'.format('Reference: this is 80 chars'))
     for card in hand:
-        card[1] = inttosuit(card[1])
-    for i in range(length):
+        card[1] = intToSuit(card[1])
+    for i in range(_length):
         line = ''
         for card in hand:
             line += str(cards[card[1]][i].format(card[0]) + ' ')
