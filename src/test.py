@@ -28,13 +28,13 @@ Hands to check and break once the best is found:
 royalflush = [[10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [2, 0], [3, 0]]
 straightflush = [[14, 0], [2, 0], [3, 0], [4, 0], [5, 0], [13, 0], [12, 0]]
 fourofakind = [[14, 0], [14, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
-fullhouse = [[1,0],[1,1],[2,2],[2,3],[2,2], [3, 1], [3,0]]
-flush = [[1, 0], [3, 0], [5, 0], [7, 0], [9, 0], [11, 1], [13, 0]]
+fullhouse = [[5,0],[5,1],[2,1],[2,3],[2,2], [3, 1], [3,0]]
+flush = [[5, 0], [3, 0], [8, 0], [7, 0], [9, 0], [11, 1], [13, 0]]
 straight = [[14, 0], [2, 1], [3, 2], [4, 3], [5, 0], [13, 1], [12, 2]]
-threeofakind = [[14, 0], [14, 1], [14, 2], [1, 3], [8, 2], [3, 1], [5, 0]]
+threeofakind = [[14, 0], [14, 1], [14, 2], [6, 3], [8, 2], [3, 1], [5, 0]]
 twopair = [[12, 0], [12, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 pair = [[12, 0], [4, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
-highcard =  [[1, 0], [3, 1], [5, 2], [7, 3], [9, 0], [11, 1], [13, 2]]
+highcard =  [[6, 0], [3, 1], [5, 2], [7, 3], [9, 0], [11, 1], [13, 2]]
 
 from random import shuffle
 royalflushshuffled = royalflush[:]
@@ -93,6 +93,7 @@ negativecards = [[-1, -1]]
 duplicates = [[1,2],[1,2]]
 invalidcolor = [[1,2],[1, -1],[1,5],[1,9999999999999]]
 invalidvalue = [[-1,2],[15,1],[999999999999,3]]
+halfhand = [[1,],[2]]
 
 
 testingsuite = {'royalflush': [royalflush, royalflushshuffled, royalflushend, royal],
@@ -105,7 +106,7 @@ testingsuite = {'royalflush': [royalflush, royalflushshuffled, royalflushend, ro
                 'twopair': [twopair, twopairshuffled, twopairend, twotwokind, twop],
                 'pair': [pair, pairshuffled, pairend, twokind, p],
                 'highcard': [highcard, highcardshuffled, highcardend, high, hi],
-                #,'broken':   [emptyhand, emptycards, negativecards, duplicates, invalidcolor, invalidvalue]
+                'broken':   [emptyhand, emptycards, negativecards, duplicates, invalidcolor, invalidvalue, halfhand]
                 }
 
 
@@ -120,7 +121,7 @@ message = {'royalflush':['Royal Flush', 9],
              'twopair':['Two Pair',2],
              'pair':['Pair',1],
              'highcard':['High Card',0],
-             'broken':''}
+             'broken':['Catching Exceptions', -1]}
 
 def test():
     errors = 0

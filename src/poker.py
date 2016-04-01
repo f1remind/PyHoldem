@@ -2,6 +2,7 @@
 This script tests the value of a poker set following the texas hold 'em rules.
 2016-04-01:00-13 404 lines total, 153 lines functional code without debug methods
 '''
+#TODO class that translates the card input into readable output
 #TODO Compare hands, return the higher valued one and its value.
 #If both have the same value calculate the winning hand
 #TODO encode the type of tiebraker once the tiebreaking has been implemented
@@ -18,64 +19,84 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
 
 #TODO Catch any invalid hands and return true/false
 def validateHand(cards):
-    #Are there impossible values?
-    #Are there impossible colors?
-    #Are there any duplicates?
-    pass
+    valid = True
+    #is the hand empty?
+    if len(cards):
+        #Check suit and value
+        def validateCard(card):
+            valid = True
+            if len(card) < 2 or card[0] < 2 or card[0] > 14 or card[1] < 0 or card[1] > 3:
+                valid = False
+            return valid
+        #check for doubles
+        for card in cards:
+            if cards.count(card) > 1:
+                valid = False
+        #validate color and suit
+        for card in cards:
+            if not validateCard(card):
+                valid = False
+                break
+    else:
+        valid = False
+    return valid
+
+
 
 #Evaluates the value of the given cards returning the value
 #TODO return the winning cards aswell
 def evalHand(cards):#return winning cards
-    #Check all possibilities:
-    #validate cards, if invalid exit!
-    value = 0
-    x, y, z = evalFullHouse(cards[:])
-    tmp = []
-    if(x):
-        value = 3# Three of a kind
-        tmp = evalOfAKind(4, cards)
-        if tmp:
-            cards = tmp
-            value = 7
-        elif(y):
-            tmp = x            
-            value = 6 # Full house
-            if(z): #Get the biggest full house
-                if z[0][0] > y[0][0]:
-                    tmp.append(z[0])
-                    tmp.append(z[1])
+    value = -1
+    if validateHand(cards):
+        x, y, z = evalFullHouse(cards[:])
+        tmp = []
+        if(x):
+            value = 3# Three of a kind
+            tmp = evalOfAKind(4, cards)
+            if tmp:
+                cards = tmp
+                value = 7
+            elif(y):
+                tmp = x            
+                value = 6 # Full house
+                if(z): #Get the biggest full house
+                    if z[0][0] > y[0][0]:
+                        tmp.append(z[0])
+                        tmp.append(z[1])
+                    else:
+                        tmp.append(y[0])
+                        tmp.append(y[1])
                 else:
                     tmp.append(y[0])
                     tmp.append(y[1])
-            else:
-                tmp.append(y[0])
-                tmp.append(y[1])
-    if not tmp:
-        tmp = evalFlush(cards)
-        if tmp:
-            value = 5
-            straightflush = evalStraight(tmp)
-            if straightflush:
-                value = 8
-                tmp = straightflush
-                royalflush = evalRoyalFlush(straightflush)
-                if royalflush:
-                    value = 9
-                    tmp = royalflush
         if not tmp:
-            tmp = evalStraight(cards)
+            tmp = evalFlush(cards)
             if tmp:
-                value = 4
-            
-        if not value:
-            if len(y) & len(z):
-                value = 2
-                tmp = y
-                tmp.append(z[0])
-                tmp.append(z[1])
-            elif len(y):
-                tmp = y
-                value = 1
+                value = 5
+                straightflush = evalStraight(tmp)
+                if straightflush:
+                    value = 8
+                    tmp = straightflush
+                    royalflush = evalRoyalFlush(straightflush)
+                    if royalflush:
+                        value = 9
+                        tmp = royalflush
+            if not tmp:
+                tmp = evalStraight(cards)
+                if tmp:
+                    value = 4
+                
+            if value < 0:
+                if len(y) and len(z):
+                    value = 2
+                    tmp = y
+                    tmp.append(z[0])
+                    tmp.append(z[1])
+                elif len(y):
+                    tmp = y
+                    value = 1
+                else:
+                    value = 0
     return value
         
                 
