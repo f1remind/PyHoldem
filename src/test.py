@@ -80,12 +80,14 @@ threekind = threeofakind[:5]
 twotwokind = twopair[:5]
 twokind = pair[:5]
 high = highcard[:5]
+
 #Minimum, unless 5 is the minimum only add as little as possible here
 four = [[14, 0], [14, 1], [14, 2], [14, 3]]
 three = [[7, 0], [7, 1], [7, 3]]
 twop = [[4, 0], [2, 1], [4, 1], [2, 2]]
 p = [[4, 0], [4, 1]]
 hi = [[6,0]]
+
 #Invalid hands
 emptyhand = []
 emptycards = [[],[],[],[]]

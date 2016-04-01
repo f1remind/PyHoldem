@@ -2,20 +2,160 @@
 This script tests the value of a poker set following the texas hold 'em rules.
 2016-04-01:00-13 404 lines total, 153 lines functional code without debug methods
 '''
-#TODO class that translates the card input into readable output
 #TODO Compare hands, return the higher valued one and its value.
 #If both have the same value calculate the winning hand
 #TODO encode the type of tiebraker once the tiebreaking has been implemented
 ##Higher Straight [Flush]{Straight Flush | Straight} | Pair {Full House | Two Pair | Pair} | Three Of A Kind {Full House | Three Of A Kind}
 ##<x> Kicker {Four Of A Kind | Flush | Three Of A Kind | Two Pair | Pair | Highcard}
 def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
-    #Compare values. If one is higher return the winning one
-    #When comparing straights (8 or 4) and an ace is apparent, skip that ace and check for the next value since the ace CAN be a one
-    #If it's a full house compare the tripple
-    #Else if it's four/three/two of a kind compare the highest match
-    #Else sort them by value and find the one with one card higher than the other
-    #Else return draw
-    pass
+    equal = 0
+    #decider = 0 #Defines what has won this decision (straight, kicker, four of a kind, three of a kind, pair)
+    if value1 > value2:
+        equal = 1
+    elif value1 < value2:
+        equal = -1
+    if equal == 0:
+        cards1.sort()
+        cards2.sort()
+        
+        if value1 == 9:#Royal Flush
+            pass
+        
+        elif value1 == 8:#Straight Flush
+
+            #Better Straight
+            if cards1[-1] > cards2[-1]:
+                equal = 1
+            elif cards1[-1] < cards2[-1]:
+                equal = -1
+                
+        elif value1 == 7:#Four Of A Kind
+            four1 = evalOfAKind(4, cards1)
+            four2 = evalOfAKind(4, cards2)
+
+            #Better Four Of A Kind
+            if four1[0][0] > four2[0][0]:
+                equal = 1
+            elif four1[0][0] < four2[0][0]:
+                equal = -1
+
+            #Better Kicker   
+            else:
+                helper.removeCards(cards1, four1)
+                helper.removeCards(cards2, four2)
+                if cards1[0][0] < cards2[0][0]:
+                    equal = 1
+                elif cards1[0][0] > cards2[0][0]:
+                    equal = -1
+                    
+        elif value1 == 6:#Full House
+            #Better Three Of A Kind
+            x1, y1 = evalFullHouse(cards1)
+            x2, y2 = evalFullHouse(cards2)
+            if x1[0][0] < x2[0][0]:
+                equal = 1
+            elif x1[0][0] > x2[0][0]:
+                equal = -1
+                
+            #Better Pair
+            else:
+                if y1[0][0] < y2[0][0]:
+                    equal = 1
+                elif y1[0][0] > y2[0][0]:
+                    equal = -1
+
+        elif value1 == 5:#Flush
+            #Higher Kicker
+            for i in range(cards1):
+                if cards1[-i][0] > cards2[-i][0]:
+                    equal = 1
+                    break
+                elif cards1[-i][0] < cards2[-i][0]:
+                    equal = -1
+                    break
+                
+        elif value1 == 4:#Straight
+            #Higher Straight
+            if cards1[0][0] > cards2[0][0]:
+                equal = 1
+            elif cards2[0][0] > cards2[0][0]:
+                equal = 0
+                
+        elif value1 == 3:#Three Of A Kind
+            x1 = evalFullHouse(cards1)
+            x2 = evalFullHouse(cards2)
+            
+            #Better Three Of A Kind
+            if x1[0][0] > x2[0][0]:
+                equal = 1
+            elif x1[0][0] < x2[0][0]:
+                equal = -1
+
+            #Higher Kicker
+            else:
+                for i in range(cards1):
+                    if cards1[-i][0] > cards2[-i][0]:
+                        equal = 1
+                        break
+                    elif cards1[-i][0] < cards2[-i][0]:
+                        equal = -1
+                        break
+                    
+        elif value1 == 2:#Two Pair
+            _, x1, y1 = evalFullHouse(cards1)
+            _, x2, y2 = evalFullHouse(cards2)
+            #Better Pair(1)
+            if x1[0][0] > x2[0][0]:
+                equal = 1
+            elif x1[0][0] < x2[0][0]:
+                equal = -1
+            
+            #Better Pair(2)
+            else:
+                if y1[0][0] > y2[0][0]:
+                    equal = 1
+                elif y1[0][0] < y2[0][0]:
+                    equal= -1
+
+                #Higher Kicker
+                else:
+                    for i in range(cards1):
+                        if cards1[-i][0] > cards2[-i][0]:
+                            equal = 1
+                            break
+                        elif cards1[-i][0] < cards2[-i][0]:
+                            equal = -1
+                            break
+
+        elif value1 == 1:#Pair
+            #Higher Pair
+            _, x1 = evalFullHouse(cards1)
+            _, x2 = evalFullHouse(cards2)
+            if x1[0][0] > x2[0][0]:
+                equal = 1
+            elif x1[0][0] < x2[0][0]:
+                equal = -1
+            
+            #Higher Kicker
+            else:
+                for i in range(cards1):
+                    if cards1[-i][0] > cards2[-i][0]:
+                        equal = 1
+                        break
+                    elif cards1[-i][0] < cards2[-i][0]:
+                        equal = -1
+                        break
+
+        elif value1 == 0:#High Card
+            #Higher Kicker
+            for i in range(cards1):
+                if cards1[-i][0] > cards2[-i][0]:
+                    equal = 1
+                    break
+                elif cards1[-i][0] < cards2[-i][0]:
+                    equal = -1
+                    break
+    return equal
 
 #TODO Catch any invalid hands and return true/false
 def validateHand(cards):
@@ -279,7 +419,7 @@ def play(cards):
     displayCardInfo(evalHand(cards), cards)
 
 class helper:
-    #Helper Method to subtract the 'to_delete' cards from the 'cards' list
+    #Subtract the 'to_delete' cards from the 'cards' list
     def removeCards(cards, to_delete):
         for card in to_delete:
             if card in cards:
