@@ -1,5 +1,6 @@
 _length = 10
 _width = 11
+
 template = [
             ' _________ ',
             '|         |',
@@ -12,14 +13,15 @@ template = [
             '|         |',
             ' ‾‾‾‾‾‾‾‾‾ '
             ]
+
 cards = {'diamond':[
               ' _________ ',
               '|{:<9}|',
               '|         |',
-              '|   / \   |',
-              '|  /   \  |',
-              '|  \   /  |',
-              '|   \ /   |',
+              '|   /\    |',
+              '|  /  \   |',
+              '|  \  /   |',
+              '|   \/    |',
               '|         |',
               '|{:>9}|',
               ' ‾‾‾‾‾‾‾‾‾ '
@@ -28,10 +30,10 @@ cards = {'diamond':[
               ' _________ ',
               '|{:<9}|',
               '|         |',
-              '| /‾\_/‾\ |',
-              '| \     / |',
-              '|  \   /  |',
-              '|   \_/   |',
+              '| /‾\/‾\  |',
+              '| \    /  |',
+              '|  \  /   |',
+              '|   \/    |',
               '|         |',
               '|{:>9}|',
               ' ‾‾‾‾‾‾‾‾‾ '
@@ -53,7 +55,7 @@ cards = {'diamond':[
               '|{:<9}|',
               '|         |',
               '|  _|‾|_  |',
-              '| |_   _| |',
+              '| (_   _) |',
               '|   / \   |',
               '|   ‾‾‾   |',
               '|         |',
@@ -61,6 +63,7 @@ cards = {'diamond':[
               ' ‾‾‾‾‾‾‾‾‾ '
               ]
           }
+
 def printAllCards():
     for suit in cards:
         for i in range(2,15):
@@ -78,7 +81,6 @@ def printAllCards():
                     val = str(i)
                 print(line.format(val))
 
-
 def intToSuit(suit):
     output = ''
     if suit == 0:
@@ -90,6 +92,7 @@ def intToSuit(suit):
     elif suit == 3:
         output = 'spade'
     return output
+
 def handToAscii(hand):
     output = []
     for card in hand:
@@ -98,6 +101,7 @@ def handToAscii(hand):
             lines.append(line.format(card[0]))
         output.append(lines)
     return output
+
 def printHand(hand=[]):
     if not len(hand):
         print('This is the default print without parameters to demonstrate this function')
