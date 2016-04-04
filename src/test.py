@@ -108,7 +108,10 @@ testingsuite = {'royalflush': [royalflush, royalflushshuffled, royalflushend, ro
                 'twopair': [twopair, twopairshuffled, twopairend, twotwokind, twop],
                 'pair': [pair, pairshuffled, pairend, twokind, p],
                 'highcard': [highcard, highcardshuffled, highcardend, high, hi],
-                'broken':   [emptyhand, emptycards, negativecards, duplicates, invalidcolor, invalidvalue, halfhand]
+                'broken':   [emptyhand, emptycards, negativecards, duplicates, invalidcolor, invalidvalue, halfhand],
+                'compareleft': [],
+                'compareright': [],
+                'compareequal': []
                 }
 
 
@@ -123,7 +126,10 @@ message = {'royalflush':['Royal Flush', 9],
              'twopair':['Two Pair',2],
              'pair':['Pair',1],
              'highcard':['High Card',0],
-             'broken':['Catching Exceptions', -1]}
+             'broken':['Catching Exceptions', -1],
+             'compareleft':['Left Hand Wins', 1],
+             'compareright':['Right Hand Wins', -1],
+             'compareequal':['Both hands are equal', 0]}
 
 def test():
     errors = 0
