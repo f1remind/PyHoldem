@@ -36,11 +36,11 @@ twopair = [[12, 0], [12, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 pair = [[12, 0], [4, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 highcard =  [[6, 0], [3, 1], [5, 2], [7, 3], [9, 0], [11, 1], [13, 2]]
 
-straightflushinferior = [[14, 0], [2, 0], [3, 0], [4, 0], [5, 0], [13, 0], [12, 0]]
+straightflushinferior = [[14, 0], [2, 0], [3, 0], [4, 0], [5, 0], [13, 0], [6, 0]]
 fourofakindinferior = [[12, 0], [12, 1], [12, 2], [12, 3], [8, 2], [3, 1], [5, 0]]
 fullhouseinferior = [[2,0],[2,1],[2,1],[3,3],[3,2], [4, 1], [4,0]]
 flushinferior = [[5, 0], [3, 0], [8, 0], [7, 0], [9, 0], [11, 1], [4, 0]]
-straightinferior = [[14, 0], [2, 1], [3, 2], [4, 3], [5, 0], [13, 1], [12, 2]]
+straightinferior = [[14, 0], [2, 1], [3, 2], [4, 3], [5, 0], [13, 1], [6, 2]]
 threeofakindinferior = [[12, 0], [12, 1], [12, 2], [6, 3], [8, 2], [3, 1], [5, 0]]
 twopairinferior = [[11, 0], [11, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 pairinferior = [[12, 0], [4, 1], [2, 2], [8, 3], [8, 2], [3, 1], [5, 0]]
@@ -124,8 +124,16 @@ testingsuite = {'royalflush': [[royalflush], [royalflushshuffled], [royalflushen
 					[5, flushinferior, 5, flush], [4, straightinferior, 4, straight], \
 					[3, threeofakindinferior, 3, threeofakind], \
 					[2, twopairinferior, 2, twopair], [1, pairinferior, 1, pair], [0, highcardinferior, 0, highcard]],
-			'compareleft': [],
-			'compareequal': []
+			'compareleft': [[8, straightflush, 8, straightflushinferior], \
+					[7, fourofakind, 7, fourofakindinferior], [6, fullhouse, 6, fullhouseinferior], \
+					[5, flush, 5, flushinferior], [4, straight, 4, straightinferior], \
+					[3, threeofakind, 3, threeofakindinferior], \
+					[2, twopair, 2, twopairinferior], [1, pair, 1, pairinferior], [0, highcard, 0, highcardinferior]],
+			'compareequal': [[8, straightflush , 8, straightflush], \
+					[7, fourofakind, 7, fourofakind], [6, fullhouse, 6, fullhouse], \
+					[5, flush, 5, flush], [4, straight, 4, straight], \
+					[3, threeofakind, 3, threeofakind], \
+					[2, twopair, 2, twopair], [1, pair, 1, pair], [0, highcard, 0, highcard]]
 			}
 
 
