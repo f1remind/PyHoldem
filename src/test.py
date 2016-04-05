@@ -30,7 +30,7 @@ straightflush = [[9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [5, 0], [7, 0]]
 fourofakind = [[14, 0], [14, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 fullhouse = [[5,0],[5,1],[8,1],[8,3],[8,2], [3, 1], [3,0]]
 flush = [[5, 0], [3, 0], [8, 0], [7, 0], [9, 0], [11, 1], [13, 0]]
-straight = [[14, 0], [6, 1], [3, 2], [4, 3], [5, 0], [13, 1], [12, 2]]
+straight = [[14, 0], [11, 1], [10, 2], [12, 3], [13, 0], [6, 1], [8, 2]]
 threeofakind = [[14, 0], [14, 1], [14, 2], [6, 3], [8, 2], [3, 1], [5, 0]]
 twopair = [[12, 0], [12, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
 pair = [[12, 0], [4, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
@@ -43,7 +43,7 @@ flushinferior = [[5, 0], [3, 0], [8, 0], [7, 0], [9, 0], [11, 1], [4, 0]]
 straightinferior = [[14, 0], [2, 1], [3, 2], [4, 3], [5, 0], [13, 1], [12, 2]]
 threeofakindinferior = [[12, 0], [12, 1], [12, 2], [6, 3], [8, 2], [3, 1], [5, 0]]
 twopairinferior = [[11, 0], [11, 1], [14, 2], [14, 3], [8, 2], [3, 1], [5, 0]]
-pairinferior = [[12, 0], [4, 1], [8, 2], [8, 3], [8, 2], [3, 1], [5, 0]]
+pairinferior = [[12, 0], [4, 1], [2, 2], [8, 3], [8, 2], [3, 1], [5, 0]]
 highcardinferior =  [[6, 0], [3, 1], [5, 2], [7, 3], [9, 0], [11, 1], [10, 2]]
 
 from random import shuffle
@@ -108,51 +108,60 @@ invalidvalue = [[-1,2],[15,1],[999999999999,3]]
 halfhand = [[1,],[2]]
 
 
-testingsuite = {'royalflush': [royalflush, royalflushshuffled, royalflushend, royal],
-                'straightflush': [straightflush, straightflushshuffled, straightflushend, sflush],
-                'fourofakind': [fourofakind, fourofakindshuffled, fourofakindend, fourkind, four],
-                'fullhouse': [fullhouse, fullhouseshuffled, fullhouseend, house],
-                'flush': [flush, flushshuffled, flushend, flu],
-                'straight': [straight, straightshuffled, straightend, strai],
-                'threeofakind': [threeofakind, threeofakindshuffled, threeofakindend, threekind, three],
-                'twopair': [twopair, twopairshuffled, twopairend, twotwokind, twop],
-                'pair': [pair, pairshuffled, pairend, twokind, p],
-                'highcard': [highcard, highcardshuffled, highcardend, high, hi],
-                'broken':   [emptyhand, emptycards, negativecards, duplicates, invalidcolor, invalidvalue, halfhand],
-                'compareleft': [],
-                'compareright': [],
-                'compareequal': []
-                }
+testingsuite = {'royalflush': [[royalflush], [royalflushshuffled], [royalflushend], [royal]],
+                'straightflush': [[straightflush], [straightflushshuffled], [straightflushend], [sflush]],
+                'fourofakind': [[fourofakind], [fourofakindshuffled], [fourofakindend], [fourkind], [four]],
+			'fullhouse': [[fullhouse], [fullhouseshuffled], [fullhouseend], [house]],
+			'flush': [[flush], [flushshuffled], [flushend], [flu]],
+			'straight': [[straight], [straightshuffled], [straightend], [strai]],
+			'threeofakind': [[threeofakind], [threeofakindshuffled], [threeofakindend], [threekind], [three]],
+			'twopair': [[twopair], [twopairshuffled], [twopairend], [twotwokind], [twop]],
+			'pair': [[pair], [pairshuffled], [pairend], [twokind], [p]],
+			'highcard': [[highcard], [highcardshuffled], [highcardend], [high], [hi]],
+			'broken':   [[emptyhand], [emptycards], [negativecards], [duplicates], [invalidcolor], [invalidvalue], [halfhand]],
+			'compareright': [[8, straightflushinferior, 8, straightflush], \
+					[7, fourofakindinferior, 7, fourofakind], [6, fullhouseinferior, 6, fullhouse], \
+					[5, flushinferior, 5, flush], [4, straightinferior, 4, straight], \
+					[3, threeofakindinferior, 3, threeofakind], \
+					[2, twopairinferior, 2, twopair], [1, pairinferior, 1, pair], [0, highcardinferior, 0, highcard]],
+			'compareleft': [],
+			'compareequal': []
+			}
 
 
 
-message = {'royalflush':['Royal Flush', 9],
-             'straightflush':['Straight Flush', 8],
-             'fourofakind':['Four Of A Kind', 7],
-             'fullhouse':['Full House', 6],
-             'flush':['Flush',5],
-             'straight':['Straight',4],
-             'threeofakind':['Three Of A Kind',3],
-             'twopair':['Two Pair',2],
-             'pair':['Pair',1],
-             'highcard':['High Card',0],
-             'broken':['Catching Exceptions', -1],
-             'compareleft':['Left Hand Wins', 1],
-             'compareright':['Right Hand Wins', -1],
-             'compareequal':['Both hands are equal', 0]}
+message = {'royalflush':['Royal Flush', 9, poker.evalHand],
+	     'straightflush':['Straight Flush', 8, poker.evalHand],
+	     'fourofakind':['Four Of A Kind', 7, poker.evalHand],
+	     'fullhouse':['Full House', 6, poker.evalHand],
+             'flush':['Flush',5, poker.evalHand],
+             'straight':['Straight',4, poker.evalHand],
+             'threeofakind':['Three Of A Kind',3, poker.evalHand],
+             'twopair':['Two Pair',2, poker.evalHand],
+             'pair':['Pair',1, poker.evalHand],
+             'highcard':['High Card',0, poker.evalHand],
+             'broken':['Catching Exceptions', -1, poker.evalHand],
+             'compareleft':['Left Hand Wins', 1, poker.compareHands],
+             'compareright':['Right Hand Wins', -1, poker.compareHands],
+             'compareequal':['Both hands are equal', 0, poker.compareHands]}
 
 def test():
     errors = 0
     tests = 0
+    global message
+    global testingsuite
     print('{:15}{:^25}{:^20}'.format('Result', 'Hand', ' Expected:Calculated'))
     for key in testingsuite:
         for cards in testingsuite[key]:
             tests += 1
             expected = message[key][1]
-            calculated = poker.evalHand(cards)
+            calculated = message[key][2](*cards)
             if calculated != expected:
-                print('{:<15}{:^25}{:^20} using {}'.format('!!![ERROR]!!!', message[key][0], str(expected) + ':' + str(calculated), cards))
+                print('{:<15}{:^25}{:^20} using {}'.format('!!![ERROR]!!!', str(message[key][0]), str(expected) + ':' + str(calculated), cards))
                 errors += 1
             else:
                 print('{:<15}{:^25}{:^20}'.format('[SUCCESS]', message[key][0], str(expected) + ':' + str(calculated)))
     print('\n{:=^80}'.format('Completed with ' + str(errors) + ' Errors in ' + str(tests) + ' Tests.'))
+
+if __name__ == '__main__':
+	test()
