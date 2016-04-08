@@ -1,6 +1,8 @@
 #TODO encode the type of tiebraker
 def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
     equal = 0
+    cards1 = cards1[:]
+    cards2 = cards2[:]
     #decider = 0 #Defines what has won this decision (straight, kicker, four of a kind, three of a kind, pair)
     if value1 > value2:
         equal = 1
