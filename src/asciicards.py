@@ -41,10 +41,10 @@ cards = {'diamond':[
           'spade':[
               ' _________ ',
               '|{:<9}|',
-              '|         |',
-              '|   /‾\   |',
-              '|  /   \  |',
-              '| /     \ |',
+              '|    .    |',
+              '|   /.\   |',
+              '|  / . \  |',
+              '| /  .  \ |',
               '| \_/|\_/ |',
               '|         |',
               '|{:>9}|',
@@ -53,8 +53,8 @@ cards = {'diamond':[
           'club':[
               ' _________ ',
               '|{:<9}|',
-              '|         |',
-              '|  _|‾|_  |',
+              '|    _    |',
+              '|  _( )_  |',
               '| (_   _) |',
               '|   / \   |',
               '|   ‾‾‾   |',
@@ -63,6 +63,20 @@ cards = {'diamond':[
               ' ‾‾‾‾‾‾‾‾‾ '
               ]
           }
+
+def intToCardname(i):
+    val = ''
+    if i == 14:
+        val = 'Ace'
+    elif i == 13:
+        val = 'King'
+    elif i == 12:
+        val = 'Queen'
+    elif i == 11:
+        val = 'Jack'
+    else:
+        val = str(i)
+    return val
 
 def printAllCards():
     for suit in cards:
@@ -112,6 +126,9 @@ def printHand(hand=[]):
     for i in range(_length):
         line = ''
         for card in hand:
-            line += str(cards[card[1]][i].format(card[0]) + ' ')
+            line += str(cards[card[1]][i].format(intToCardname(card[0])) + ' ')
         print(line)
         
+
+
+
