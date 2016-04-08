@@ -1,4 +1,7 @@
-This Python3 Application enables playing Texas Hold'Em No Limits.
+#Behold the mighty Python!
+This Python3 Application enables playing Texas Hold'Em No Limits.  
+It shall be developed without outside dependencies and just work.
+You shall share the python poker experience with your friends and family!
 
 ##What this Application can do
 * Evaluate the tier of given cards from High Card to Royal Flush
