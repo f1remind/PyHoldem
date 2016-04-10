@@ -185,16 +185,16 @@ def evalHand(cards):#return winning cards
     if validateHand(cards):
         x, y, z = evalFullHouse(cards[:])
         tmp = []
-        if(x):
+        if x:
             value = 3# Three of a kind
             tmp = evalOfAKind(4, cards)
             if tmp:
                 cards = tmp
                 value = 7
-            elif(y):
+            elif y:
                 tmp = x            
                 value = 6 # Full house
-                if(z): #Get the biggest full house
+                if z: #Get the biggest full house
                     if z[0][0] > y[0][0]:
                         tmp.append(z[0])
                         tmp.append(z[1])
