@@ -1,6 +1,12 @@
 #TODO encode the type of tiebraker
 def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
+    #0 > Kicker
+    #1 > Pair
+    #2 > Three Of A Kind
+    #3 > Straight
+    #4 > Four Of A Kind
     equal = 0
+    decider = -1
     cards1 = cards1[:]
     cards2 = cards2[:]
     #decider = 0 #Defines what has won this decision (straight, kicker, four of a kind, three of a kind, pair)
@@ -21,8 +27,10 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             straight2 = evalStraightFlush(cards2)
             if straight1[-1] > straight2[-1]:
                 equal = 1
+                decider = 3
             elif straight1[-1] < straight2[-1]:
                 equal = -1
+                decider = 3
                 
         elif value1 == 7:#Four Of A Kind
             four1 = evalOfAKind(4, cards1)
@@ -31,8 +39,10 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             #Better Four Of A Kind
             if four1[0][0] > four2[0][0]:
                 equal = 1
+                decider = 4
             elif four1[0][0] < four2[0][0]:
                 equal = -1
+                decider = 4
 
             #Better Kicker   
             else:
@@ -40,8 +50,10 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
                 helper.removeCards(cards2, four2)
                 if cards1[0][0] < cards2[0][0]:
                     equal = 1
+                    decider = 0
                 elif cards1[0][0] > cards2[0][0]:
                     equal = -1
+                    decider = 0
                     
         elif value1 == 6:#Full House
             #Better Three Of A Kind
@@ -49,24 +61,30 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             x2, y2, _ = evalFullHouse(cards2)
             if x1[0][0] > x2[0][0]:
                 equal = 1
+                decider = 2
             elif x1[0][0] < x2[0][0]:
                 equal = -1
+                decider = 2
                 
             #Better Pair
             else:
                 if y1[0][0] < y2[0][0]:
                     equal = 1
+                    decider = 1
                 elif y1[0][0] > y2[0][0]:
                     equal = -1
+                    decider = 1
 
         elif value1 == 5:#Flush
             #Higher Kicker
             for i in range(len(cards1)):
                 if cards1[-i][0] > cards2[-i][0]:
                     equal = 1
+                    decider = 0
                     break
                 elif cards1[-i][0] < cards2[-i][0]:
                     equal = -1
+                    decider = 0
                     break
                 
         elif value1 == 4:#Straight
@@ -75,8 +93,10 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             straight2 = evalStraight(cards2)
             if straight1[-1] > straight2[-1]:
                 equal = 1
+                decider = 3
             elif straight1[-1] < straight2[-1]:
                 equal = -1
+                decider = 3
                 
         elif value1 == 3:#Three Of A Kind
             x1, _, _ = evalFullHouse(cards1)
@@ -85,17 +105,21 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             #Better Three Of A Kind
             if x1[0][0] > x2[0][0]:
                 equal = 1
+                decider = 2
             elif x1[0][0] < x2[0][0]:
                 equal = -1
+                decider = 2
 
             #Higher Kicker
             else:
                 for i in range(len(cards1)):
                     if cards1[-i][0] > cards2[-i][0]:
                         equal = 1
+                        decider = 0
                         break
                     elif cards1[-i][0] < cards2[-i][0]:
                         equal = -1
+                        decider = 0
                         break
                     
         elif value1 == 2:#Two Pair
@@ -104,24 +128,30 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             #Better Pair(1)
             if x1[0][0] > x2[0][0]:
                 equal = 1
+                decider = 1
             elif x1[0][0] < x2[0][0]:
                 equal = -1
+                decider = 1
             
             #Better Pair(2)
             else:
                 if y1[0][0] > y2[0][0]:
                     equal = 1
+                    decider = 1
                 elif y1[0][0] < y2[0][0]:
                     equal= -1
+                    decider = 1
 
                 #Higher Kicker
                 else:
                     for i in range(len(cards1)):
                         if cards1[-i][0] > cards2[-i][0]:
                             equal = 1
+                            decider = 0
                             break
                         elif cards1[-i][0] < cards2[-i][0]:
                             equal = -1
+                            decider = 0
                             break
 
         elif value1 == 1:#Pair
@@ -130,17 +160,21 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             _, x2, _ = evalFullHouse(cards2)
             if x1[0][0] > x2[0][0]:
                 equal = 1
+                decider = 1
             elif x1[0][0] < x2[0][0]:
                 equal = -1
+                decider = 1
             
             #Higher Kicker
             else:
                 for i in range(len(cards1)):
                     if cards1[-i][0] > cards2[-i][0]:
                         equal = 1
+                        decider = 0
                         break
                     elif cards1[-i][0] < cards2[-i][0]:
                         equal = -1
+                        decider = 0
                         break
 
         elif value1 == 0:#High Card
@@ -148,10 +182,13 @@ def compareHands(value1, cards1, value2, cards2):#1: a > b; 0: a == b; -1: a < b
             for i in range(len(cards1)):
                 if cards1[-i][0] > cards2[-i][0]:
                     equal = 1
+                    decider = 0
                     break
                 elif cards1[-i][0] < cards2[-i][0]:
                     equal = -1
+                    decider = 0
                     break
+    print('[DEBUG] Decider: {}'.format(decider))
     return equal
 
 #TODO Catch any invalid hands and return true/false
