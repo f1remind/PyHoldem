@@ -168,7 +168,7 @@ def test():
                 print('{:<15}{:^25}{:^20} using {}'.format('!!![ERROR]!!!', str(message[key][0]), str(expected) + ':' + str(calculated), cards))
                 errors += 1
             else:
-                print('{:<15}{:^25}{:^20}'.format('[SUCCESS]', message[key][0], str(expected) + ':' + str(calculated)))
+                print('{:<15}{:^65}'.format('[SUCCESS]', '{:^25}{:^20}'.format(message[key][0], str(expected) + ':' + str(calculated))))
     print('\n{:=^80}'.format('Completed with ' + str(errors) + ' Errors in ' + str(tests) + ' Tests.'))
 
 if __name__ == '__main__':
