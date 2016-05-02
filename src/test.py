@@ -111,30 +111,30 @@ halfhand = [[1,],[2]]
 testingsuite = {'royalflush': [[royalflush], [royalflushshuffled], [royalflushend], [royal]],
                 'straightflush': [[straightflush], [straightflushshuffled], [straightflushend], [sflush]],
                 'fourofakind': [[fourofakind], [fourofakindshuffled], [fourofakindend], [fourkind], [four]],
-			'fullhouse': [[fullhouse], [fullhouseshuffled], [fullhouseend], [house]],
-			'flush': [[flush], [flushshuffled], [flushend], [flu]],
-			'straight': [[straight], [straightshuffled], [straightend], [strai]],
-			'threeofakind': [[threeofakind], [threeofakindshuffled], [threeofakindend], [threekind], [three]],
-			'twopair': [[twopair], [twopairshuffled], [twopairend], [twotwokind], [twop]],
-			'pair': [[pair], [pairshuffled], [pairend], [twokind], [p]],
-			'highcard': [[highcard], [highcardshuffled], [highcardend], [high], [hi]],
-			'broken':   [[emptyhand], [emptycards], [negativecards], [duplicates], [invalidcolor], [invalidvalue], [halfhand]],
-			'compareright': [[8, straightflushinferior, 8, straightflush], \
-					[7, fourofakindinferior, 7, fourofakind], [6, fullhouseinferior, 6, fullhouse], \
-					[5, flushinferior, 5, flush], [4, straightinferior, 4, straight], \
-					[3, threeofakindinferior, 3, threeofakind], \
-					[2, twopairinferior, 2, twopair], [1, pairinferior, 1, pair], [0, highcardinferior, 0, highcard]],
-			'compareleft': [[8, straightflush, 8, straightflushinferior], \
-					[7, fourofakind, 7, fourofakindinferior], [6, fullhouse, 6, fullhouseinferior], \
-					[5, flush, 5, flushinferior], [4, straight, 4, straightinferior], \
-					[3, threeofakind, 3, threeofakindinferior], \
-					[2, twopair, 2, twopairinferior], [1, pair, 1, pairinferior], [0, highcard, 0, highcardinferior]],
-			'compareequal': [[8, straightflush , 8, straightflush], \
-					[7, fourofakind, 7, fourofakind], [6, fullhouse, 6, fullhouse], \
-					[5, flush, 5, flush], [4, straight, 4, straight], \
-					[3, threeofakind, 3, threeofakind], \
-					[2, twopair, 2, twopair], [1, pair, 1, pair], [0, highcard, 0, highcard]]
-			}
+		'fullhouse': [[fullhouse], [fullhouseshuffled], [fullhouseend], [house]],
+		'flush': [[flush], [flushshuffled], [flushend], [flu]],
+		'straight': [[straight], [straightshuffled], [straightend], [strai]],
+		'threeofakind': [[threeofakind], [threeofakindshuffled], [threeofakindend], [threekind], [three]],
+		'twopair': [[twopair], [twopairshuffled], [twopairend], [twotwokind], [twop]],
+		'pair': [[pair], [pairshuffled], [pairend], [twokind], [p]],
+		'highcard': [[highcard], [highcardshuffled], [highcardend], [high], [hi]],
+		'broken':   [[emptyhand], [emptycards], [negativecards], [duplicates], [invalidcolor], [invalidvalue], [halfhand]],
+		'compareright': [[8, straightflushinferior, 8, straightflush], \
+				[7, fourofakindinferior, 7, fourofakind], [6, fullhouseinferior, 6, fullhouse], \
+				[5, flushinferior, 5, flush], [4, straightinferior, 4, straight], \
+				[3, threeofakindinferior, 3, threeofakind], \
+				[2, twopairinferior, 2, twopair], [1, pairinferior, 1, pair], [0, highcardinferior, 0, highcard]],
+		'compareleft': [[8, straightflush, 8, straightflushinferior], \
+				[7, fourofakind, 7, fourofakindinferior], [6, fullhouse, 6, fullhouseinferior], \
+				[5, flush, 5, flushinferior], [4, straight, 4, straightinferior], \
+				[3, threeofakind, 3, threeofakindinferior], \
+				[2, twopair, 2, twopairinferior], [1, pair, 1, pairinferior], [0, highcard, 0, highcardinferior]],
+		'compareequal': [[8, straightflush , 8, straightflush], \
+				[7, fourofakind, 7, fourofakind], [6, fullhouse, 6, fullhouse], \
+				[5, flush, 5, flush], [4, straight, 4, straight], \
+				[3, threeofakind, 3, threeofakind], \
+				[2, twopair, 2, twopair], [1, pair, 1, pair], [0, highcard, 0, highcard]]
+		}
 
 
 
@@ -158,7 +158,7 @@ def test():
     tests = 0
     global message
     global testingsuite
-    print('{:15}{:^25}{:^20}'.format('Result', 'Hand', ' Expected:Calculated'))
+    print('{:15}{:^65}'.format('Result', '{:^25}{:^20}'.format('Hand', ' Expected:Calculated')))
     for key in testingsuite:
         for cards in testingsuite[key]:
             tests += 1
